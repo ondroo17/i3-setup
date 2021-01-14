@@ -1,5 +1,16 @@
 #!/bin/bash
-echo -e 'info\nquit' | bluetoothctl | awk '/Name/ {print $2}'
+DEVICE="--"
+DEVICE=$(echo -e 'info\nquit' | bluetoothctl | awk '/Name/ {print $2}')
+
+if [[ ! "${DEVICE}" -eq "" ]]; then
+	echo "$DEVICE"
+	echo "$DEVICE"
+	echo ""
+else
+	echo "--"
+	echo "--"
+	echo ""
+fi
 
 
 if [[ "${BLOCK_BUTTON}" -eq 1 ]]; then
