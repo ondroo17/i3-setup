@@ -1,0 +1,26 @@
+#!/bin/bash
+
+
+dt=$(date '+%Y-%m-%d_%H%M%S');
+FILE=~/Pictures/screenshots/screenshot_$dt.png
+
+case $1 in
+    d) import -window root $FILE;;
+    a) import $FILE;;
+esac
+
+if [[ -f "$FILE" ]]; then
+    echo "$FILE exists."
+    xclip -selection clipboard -t image/png -i $FILE
+
+    BRIGHTNESS=$(xrandr --verbose | grep -m 1 -i brightness | cut -f2 -d ' ')
+	SCREEN=$(xrandr -q | grep " connected" | awk '{print $1}')
+	INC=$(echo "$BRIGHTNESS + 0.5" | bc)
+
+	xrandr --output $SCREEN --brightness $INC
+	xrandr --output $SCREEN --brightness $BRIGHTNESS
+fi
+
+
+
+

@@ -1,0 +1,35 @@
+#!/bin/bash
+
+SCREEN=$(xrandr -q | grep " connected" | awk '{print $1}')
+BRIGHTNESS=$(xrandr --verbose | grep -m 1 -i brightness | cut -f2 -d ' ')
+DEG=0.1
+INC=$(echo "$BRIGHTNESS + $DEG" | bc)
+DEC=$(echo "$BRIGHTNESS - $DEG" | bc)
+PERCENTAGE=$(echo "$BRIGHTNESS * 100" | bc)
+COLOR="#AAAAAA"
+
+per=$(printf "%02d%\n", $PERCENTAGE)
+
+if [[ ${per} -gt 100 ]]; then
+	COLOR="#FAAA00"
+fi
+
+# printf "%02d%%\n", $PERCENTAGE;
+# printf "%02d%%\n", $PERCENTAGE;
+echo "$per%"
+echo "$per%"
+echo "${COLOR}"
+
+
+# Left click
+if [[ "${BLOCK_BUTTON}" -eq 1 ]]; then
+ xrandr --output $SCREEN --brightness $INC
+# Right click
+elif [[ "${BLOCK_BUTTON}" -eq 3 ]]; then
+ xrandr --output $SCREEN --brightness $DEC
+elif [[ "${BLOCK_BUTTON}" -eq 4 ]]; then
+ xrandr --output $SCREEN --brightness $INC
+# Right click
+elif [[ "${BLOCK_BUTTON}" -eq 5 ]]; then
+ xrandr --output $SCREEN --brightness $DEC
+fi

@@ -1,0 +1,7 @@
+#!/bin/bash
+echo -e 'info\nquit' | bluetoothctl | awk '/Name/ {print $2}'
+
+
+if [[ "${BLOCK_BUTTON}" -eq 1 ]]; then
+ blueman-manager
+fi

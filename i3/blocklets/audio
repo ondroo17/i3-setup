@@ -1,0 +1,68 @@
+#!/bin/bash
+
+
+SINK=$(pactl list sinks short | grep RUNNING | sed -e 's,^\([0-9][0-9]*\)[^0-9].*,\1,')
+VOLUME=$(pactl list sinks | grep '^[[:space:]]Volume:' | head -n $(( $SINK + 1 )) | tail -n 1 | sed -e 's,.* \([0-9][0-9]*\)%.*,\1,')
+MUTE=$(pactl list sinks | grep '^[[:space:]]Mute:' | head -n $(( $SINK + 1 )) | tail -n 1 | awk ' {print $2}')
+COLOR="#AAAAAA"
+
+
+if [[ ${VOLUME} -gt 100 ]]; then
+	COLOR="#FAAA00"
+fi
+
+
+if [[ "${MUTE}" == "no" ]]; then
+	echo "${VOLUME}%"
+	echo "${VOLUME}%"
+	echo "${COLOR}"
+elif [[ "${MUTE}" == "yes" ]]; then
+	echo ""
+	echo ""
+	echo "#FAAA00"
+else 
+	echo "?"
+	echo "?"
+	echo "#FAAA00"
+fi
+
+# statusLine=$(amixer get Master | tail -n 1)
+# status=$(echo "${statusLine}" | grep -wo "on")
+# volume=$(echo "${statusLine}" | awk -F ' ' '{print $4}' | tr -d '[]%')
+
+# if [[ "${status}" == "on" ]]; then
+#   echo "${volume}%"
+#   echo "${volume}%"
+#   echo ""
+# else
+#   echo "off"
+#   echo "off"
+#   echo ""
+# fi
+
+
+# mouse buttons
+case $BLOCK_BUTTON in
+    1) pactl set-sink-mute 1 toggle ;; # transmission-remote-cli
+    3) pavucontrol ;; # rofi connection manager
+	4) pactl set-sink-volume 1 +5% ;;
+	5) pactl set-sink-volume 1 -5%
+esac
+
+# # Left click
+# if [[ "${BLOCK_BUTTON}" -eq 1 ]]; then
+#  pactl set-sink-mute 1 toggle
+#   # amixer -q sset Master 5%+
+# # Middle click
+# elif [[ "${BLOCK_BUTTON}" -eq 2 ]]; then
+#   amixer -q sset Master toggle
+# # Right click
+# elif [[ "${BLOCK_BUTTON}" -eq 3 ]]; then
+#   pavucontrol
+#  # Scroll up
+# elif [[ "${BLOCK_BUTTON}" -eq 4 ]]; then
+#  pactl set-sink-volume 1 +5%
+# # Scroll down
+# elif [[ "${BLOCK_BUTTON}" -eq 5 ]]; then
+#   pactl set-sink-volume 1 -5%
+# fi
