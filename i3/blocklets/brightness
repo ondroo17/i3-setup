@@ -21,15 +21,25 @@ echo "$per%"
 echo "${COLOR}"
 
 
-# Left click
-if [[ "${BLOCK_BUTTON}" -eq 1 ]]; then
- xrandr --output $SCREEN --brightness $INC
-# Right click
-elif [[ "${BLOCK_BUTTON}" -eq 3 ]]; then
- xrandr --output $SCREEN --brightness $DEC
-elif [[ "${BLOCK_BUTTON}" -eq 4 ]]; then
- xrandr --output $SCREEN --brightness $INC
-# Right click
-elif [[ "${BLOCK_BUTTON}" -eq 5 ]]; then
- xrandr --output $SCREEN --brightness $DEC
-fi
+
+
+# mouse buttons
+case $BLOCK_BUTTON in
+    1) xrandr --output $SCREEN --brightness $INC;;
+    3) xrandr --output $SCREEN --brightness $DEC;;
+	4) xrandr --output $SCREEN --brightness $INC;;
+	5) xrandr --output $SCREEN --brightness $DEC;;
+esac
+
+# # Left click
+# if [[ "${BLOCK_BUTTON}" -eq 1 ]]; then
+#  xrandr --output $SCREEN --brightness $INC
+# # Right click
+# elif [[ "${BLOCK_BUTTON}" -eq 3 ]]; then
+#  xrandr --output $SCREEN --brightness $DEC
+# elif [[ "${BLOCK_BUTTON}" -eq 4 ]]; then
+#  xrandr --output $SCREEN --brightness $INC
+# # Right click
+# elif [[ "${BLOCK_BUTTON}" -eq 5 ]]; then
+#  xrandr --output $SCREEN --brightness $DEC
+# fi
