@@ -69,7 +69,7 @@ else
 fi
 
 # mouse buttons
-case $BLOCK_BUTTON in
-    1) tm-cli ;; # transmission-remote-cli
-    3) rofi-connm # rofi connection manager
-esac
+# case $BLOCK_BUTTON in
+#     1) tm-cli ;; # transmission-remote-cli
+#     3) rofi-connm # rofi connection manager
+# esac

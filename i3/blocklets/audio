@@ -29,8 +29,8 @@ fi
 
 # mouse buttons
 case $BLOCK_BUTTON in
-    1) pactl set-sink-mute 1 toggle ;;
+    1) pactl set-sink-mute $SINK toggle ;;
     3) pavucontrol ;;
-	4) pactl set-sink-volume 1 +5% ;;
-	5) pactl set-sink-volume 1 -5% ;;
+	4) pactl set-sink-volume $SINK +5% ;;
+	5) pactl set-sink-volume $SINK -5% ;;
 esac
