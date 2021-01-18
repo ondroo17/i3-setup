@@ -2,13 +2,13 @@
 DEVICE="--"
 DEVICE=$(echo -e 'info\nquit' | bluetoothctl | awk '/Name/ {print $2}')
 
-if [[ ! "${DEVICE}" -eq "" ]]; then
-	echo "$DEVICE"
-	echo "$DEVICE"
+if [[ -z "${DEVICE}" ]]; then
+	echo "--"
+	echo "--"
 	echo ""
 else
-	echo "--"
-	echo "--"
+	echo "$DEVICE"
+	echo "$DEVICE"
 	echo ""
 fi
 

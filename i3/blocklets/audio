@@ -2,35 +2,47 @@
 
 
 SINK=$(pactl list sinks short | grep RUNNING | sed -e 's,^\([0-9][0-9]*\)[^0-9].*,\1,')
-VOLUME=$(pactl list sinks | grep '^[[:space:]]Volume:' | head -n $(( $SINK )) | tail -n 1 | sed -e 's,.* \([0-9][0-9]*\)%.*,\1,')
-MUTE=$(pactl list sinks | grep '^[[:space:]]Mute:' | head -n $(( $SINK )) | tail -n 1 | awk ' {print $2}')
+#VOLUME=$(pactl list sinks | grep '^[[:space:]]Volume:' | head -n $(( $SINK )) | tail -n 1 | sed -e 's,.* \([0-9][0-9]*\)%.*,\1,')
+#MUTE=$(pactl list sinks | grep '^[[:space:]]Mute:' | head -n $(( $SINK )) | tail -n 1 | awk ' {print $2}')
+OUTPUT=""
 COLOR="#AAAAAA"
 
-
-if [[ ${VOLUME} -gt 100 ]]; then
-	COLOR="#FAAA00"
-fi
+readarray -t array <<<"$SINK"
 
 
-if [[ "${MUTE}" == "no" ]]; then
-	echo "${VOLUME}%"
-	echo "${VOLUME}%"
-	echo "${COLOR}"
-elif [[ "${MUTE}" == "yes" ]]; then
-	echo ""
-	echo ""
-	echo "#FAAA00"
-else 
-	echo "?"
-	echo "?"
-	echo "#FAAA00"
-fi
+for element in "${array[@]}"
+do
+	VOLUME=$(pactl list sinks | grep '^[[:space:]]Volume:' | head -n $(( $element )) | tail -n 1 | sed -e 's,.* \([0-9][0-9]*\)%.*,\1,')
+	MUTE=$(pactl list sinks | grep '^[[:space:]]Mute:' | head -n $(( $element )) | tail -n 1 | awk ' {print $2}')
+
+	if [[ ${VOLUME} -gt 100 ]]; then
+		COLOR="#FAAA00"
+	fi
+
+	if [[ "${MUTE}" == "no" ]]; then
+		OUTPUT="$OUTPUT ${VOLUME}%"
+	elif [[ "${MUTE}" == "yes" ]]; then
+		OUTPUT="$OUTPUT "
+		COLOR="#FAAA00"
+	else 
+		OUTPUT="$OUTPUT --"
+		COLOR="#FAAA00"
+	fi
+done
+
+echo "$OUTPUT"
+echo "$OUTPUT"
+echo "$COLOR"
 
 
-# mouse buttons
+
+for element in "${array[@]}"
+do
+ # mouse buttons
 case $BLOCK_BUTTON in
-    1) pactl set-sink-mute $SINK toggle ;;
+    1) pactl set-sink-mute $element toggle ;;
     3) pavucontrol ;;
-	4) pactl set-sink-volume $SINK +5% ;;
-	5) pactl set-sink-volume $SINK -5% ;;
+	4) pactl set-sink-volume $element +5% ;;
+	5) pactl set-sink-volume $element -5% ;;
 esac
+done

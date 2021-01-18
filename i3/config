@@ -195,9 +195,9 @@ mode "resize" {
 #
 # Pulse Audio controls
 # run pactl list sinks
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 1 +5% #increase sound volume
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 1 -5% #decrease sound volume#
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 1 toggle # mute sound
+bindsym XF86AudioRaiseVolume exec --no-startup-id ~/.config/i3/bin/volume up #increase sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id ~/.config/i3/bin/volume down #decrease sound volume#
+bindsym XF86AudioMute exec --no-startup-id ~/.config/i3/bin/volume mute # mute sound
 
 # Amixer
 
@@ -238,6 +238,7 @@ set $m1 #808080
 set $m2 #FFF0E0
 
 # Startup programs
+exec slack
 exec --no-startup-id dunst 
 exec_always compton &;
 exec --no-startup-id clipit &; 
@@ -247,17 +248,11 @@ exec_always --no-startup-id nm-applet
 
 # Bind App to workspace
 # Check class by using xprop command
-#assign [class="chromium"] $ws2
-assign [class="Firefox Web Browser"] $ws1
-#assign [class="Atom"] $ws3
-#assign [class="Foxit Reader"] $ws3
-#assign [class="Pcmanfm"] $ws4
-#assign [class="VirtualBox"] $ws5
-#assign [class="Virt-manager"] $ws5
-#assign [class="Skype"] $ws6
-#assign [class="mpv"] $ws9
-#assign [class="vlc"] $ws9
-#assign [class="Thunderbird"] $ws7
+assign [class="Firefox"] $ws1
+assign [class="chromium"] $ws2
+assign [class="Slack"] $ws8
+assign [class="microsoft teams - preview"] $ws9
+
 #assign [class="(?i)libreoffice-startcenter"] $ws8
 #assign [class="(?i)soffice"] $ws8
 #assign [class="(?i)libreoffice"] $ws8
@@ -274,8 +269,8 @@ set $mode_launcher Launcher
 bindsym $mod+o mode "$mode_launcher"
 
 mode "$mode_launcher" {
-    bindsym f exec FoxitReader 
-    bindsym s exec skypeforlinux
+    bindsym f exec firefox 
+    bindsym s exec slack1`
     bindsym l exec lxappearance  
     bindsym m exec thunderbird  
     bindsym v exec VirtualBox 
