@@ -1,20 +1,14 @@
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 #
 
-set_from_resource $darkred     color1  #000000
-set_from_resource $red         color9  #000000
-set_from_resource $darkgreen   color2  #000000
-set_from_resource $green       color10 #000000
-set_from_resource $darkyellow  color3  #000000
-set_from_resource $yellow      color11 #000000
-set_from_resource $darkblue    color4  #000000
-set_from_resource $blue        color12 #000000
-set_from_resource $darkmagenta color5  #000000
-set_from_resource $magenta     color13 #000000
-set_from_resource $darkcyan    color6  #000000
-set_from_resource $cyan        color14 #000000
-set_from_resource $darkwhite   color7  #000000
-set_from_resource $white       color15 #000000
+# class                 border  backgr. text    indicator child_border
+client.focused          #253941 #253941 #dddddd #253941   #285577
+client.focused_inactive #253941 #5f676a #ffffff #484e50   #5f676a
+client.unfocused        #222222 #222222 #888888 #253941   #222222
+client.urgent           #2f343a #900000 #ffffff #900000   #900000
+client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
+
+client.background       #ffffff
 
 # Use custom colors for black
  set $black       #282828
@@ -23,7 +17,6 @@ set_from_resource $white       color15 #000000
 
 set $mod Mod4
 set $mod1 Mod1
-#set $terminator terminator
 set $terminator gnome-terminal
 
 new_window 1pixel
@@ -44,7 +37,6 @@ floating_modifier $mod
 
 # start a terminator by pressing Mod key + x or ENTER
 bindsym $mod+Return exec $terminator
-#bindsym $mod+x exec $terminator
 
 # Custom bindsyms
 bindsym $mod+x exec ~/.config/i3/bin/logout
@@ -55,8 +47,8 @@ bindsym $mod+Shift+f exec ~/.config/i3/bin/rofifinder
 
 
 # Enable Print Screen
-bindsym --release $mod+Print exec gnome-screenshot -i
 #bindsym --release Print exec gnome-screenshot
+bindsym --release $mod+Print exec gnome-screenshot -i
 bindsym --release Print exec ~/.config/i3/bin/screenshot d
 bindsym --release Shift+Print exec ~/.config/i3/bin/screenshot a
 
@@ -68,7 +60,6 @@ bindsym $mod+q kill
 
 # start dmenu (a program launcher)
 bindsym $mod+d exec --no-startup-id ~/.config/i3/bin/rofi_app_launcher
-
 
 # change focus
 bindsym $mod+j focus left
@@ -107,7 +98,6 @@ bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
-#bindsym $mod+w layout tabbed
 bindsym $mod+t layout tabbed
 bindsym $mod+e layout toggle split
 
@@ -200,7 +190,6 @@ bindsym XF86AudioLowerVolume exec --no-startup-id ~/.config/i3/bin/volume down #
 bindsym XF86AudioMute exec --no-startup-id ~/.config/i3/bin/volume mute # mute sound
 
 # Amixer
-
 #bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -D pulse sset Master 5%+ #increase sound volume
 #bindsym XF86AudioLowerVolume exec --no-startup-id amixer -D pulse sset Master 5%- #decrease sound volume#
 #bindsym XF86AudioMute exec --no-startup-id amixer -q set Master toggle # mute sound
@@ -239,7 +228,8 @@ set $m2 #FFF0E0
 
 # Startup programs
 exec slack
-exec --no-startup-id dunst 
+exec synology-drive
+exec --no-startup-id dunst ]o
 exec_always compton &;
 exec --no-startup-id clipit &; 
 exec_always feh --bg-scale ~/Pictures/wallpapers/lowpoly_mountains_landscape-wallpaper-2880x1800.jpg

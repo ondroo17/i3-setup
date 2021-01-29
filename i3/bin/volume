@@ -4,8 +4,6 @@ SINK=$(pactl list sinks short | grep RUNNING | sed -e 's,^\([0-9][0-9]*\)[^0-9].
 
 echo "$SINK"
 
-#IFS='/n' read -r -a array <<< "$SINK"
-
 readarray -t array <<<"$SINK"
 
 for element in "${array[@]}"
