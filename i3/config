@@ -12,7 +12,7 @@ client.background       #ffffff
 
 # Use custom colors for black
  set $black       #282828
- set $darkblack   #1d2021
+ set $darkblack   #1d2021T
  set $transparent #00000000
 
 set $mod Mod4
@@ -42,6 +42,8 @@ bindsym $mod+Return exec $terminator
 bindsym $mod+x exec ~/.config/i3/bin/logout
 bindsym $mod+l exec i3lock -i ~/Pictures/wallpapers/lockscreen.png
 bindsym $mod+c exec google-chrome
+bindsym $mod+b exec ~/.config/i3/bin/bluetooth-profiles-switch toggle
+bindsym $mod+shift+a exec authy
 bindsym $mod+r mode "resize"
 bindsym $mod+Shift+f exec ~/.config/i3/bin/rofifinder
 
@@ -73,6 +75,7 @@ bindsym $mod+Down focus down
 bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 bindsym $mod1+Tab focus next
+bindsym $mod1+Shift+Tab focus prev
 
 # move focused window
 bindsym $mod+Shift+j move left
@@ -123,6 +126,7 @@ set $ws6 "6"
 set $ws7 "7"
 set $ws8 "8"
 set $ws9 "9"
+set $ws0 "0"
 
 
 # switch to workspace
@@ -135,7 +139,7 @@ bindsym $mod+6 workspace $ws6
 bindsym $mod+7 workspace $ws7
 bindsym $mod+8 workspace $ws8
 bindsym $mod+9 workspace $ws9
-bindsym $mod+0 workspace $ws10
+bindsym $mod+0 workspace $ws0
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $ws1
@@ -147,10 +151,11 @@ bindsym $mod+Shift+6 move container to workspace $ws6
 bindsym $mod+Shift+7 move container to workspace $ws7
 bindsym $mod+Shift+8 move container to workspace $ws8
 bindsym $mod+Shift+9 move container to workspace $ws9
-bindsym $mod+Shift+0 move container to workspace $ws10
+bindsym $mod+Shift+0 move container to workspace $ws0
 
 #alternate between workspace
 bindsym $mod+Tab workspace next
+bindsym $mod+Shift+Tab workspace prev
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -228,6 +233,7 @@ set $m2 #FFF0E0
 
 # Startup programs
 exec slack
+exec firefox
 exec synology-drive
 exec --no-startup-id dunst ]o
 exec_always compton &;
@@ -238,10 +244,11 @@ exec_always --no-startup-id nm-applet
 
 # Bind App to workspace
 # Check class by using xprop command
-assign [class="Firefox"] $ws1
-assign [class="chromium"] $ws2
+assign [class="firefox"] $ws1
+assign [class="IntelliJ IDEA Ultimate"] $ws2
+assign [class="chrome"] $ws3
 assign [class="Slack"] $ws8
-assign [class="microsoft teams - preview"] $ws9
+assign [class="Microsoft Teams - Preview"] $ws9
 
 #assign [class="(?i)libreoffice-startcenter"] $ws8
 #assign [class="(?i)soffice"] $ws8
@@ -260,13 +267,18 @@ bindsym $mod+o mode "$mode_launcher"
 
 mode "$mode_launcher" {
     bindsym f exec firefox 
-    bindsym s exec slack1`
-    bindsym l exec lxappearance  
-    bindsym m exec thunderbird  
-    bindsym v exec VirtualBox 
-    bindsym k exec virt-manager 
-    bindsym d exec spectacle 
-    bindsym t exec "pcmanfm /home/koromicha"
+    bindsym s exec slack
+    bindsym c exec chrome
+    bindsym i exec intellij
+    bindsym t exec teams
+    bindsym p exec prusa
+
+    #bindsym l exec lxappearance  
+    #bindsym m exec thundeorbird  
+    #bindsym v exec VirtualBox 
+    #bindsym k exec virt-manager 
+    #bindsym d exec spectacle 
+    #bindsym t exec "pcmanfm /home/koromicha"
 
     bindsym Esc mode "default"
     bindsym Return mode "default"

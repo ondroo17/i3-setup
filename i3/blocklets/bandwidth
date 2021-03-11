@@ -68,8 +68,8 @@ else
   echo -n "${rx_kib}K↓"
 fi
 
-# mouse buttons
-# case $BLOCK_BUTTON in
-#     1) tm-cli ;; # transmission-remote-cli
-#     3) rofi-connm # rofi connection manager
-# esac
+#mouse buttons
+case $BLOCK_BUTTON in
+    #1) tm-cli ;; # transmission-remote-cli
+    3) ~/.config/i3/bin/rofi-wifi #rofi-connm # rofi connection manager
+esac
