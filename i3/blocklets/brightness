@@ -1,6 +1,6 @@
-#!/bin/bash
+..#!/bin/bash
 
-SCREEN=$(xrandr -q | grep " connected" | awk '{print $1}')
+# SCREEN=$(xrandr -q | grep " connected" | awk '{print $1}')
 BRIGHTNESS=$(xrandr --verbose | grep -m 1 -i brightness | cut -f2 -d ' ')
 DEG=0.1
 INC=$(echo "$BRIGHTNESS + $DEG" | bc)
@@ -8,7 +8,7 @@ DEC=$(echo "$BRIGHTNESS - $DEG" | bc)
 PERCENTAGE=$(echo "$BRIGHTNESS * 100" | bc)
 COLOR="#AAAAAA"
 
-per=$(printf "%02d%\n", $PERCENTAGE)
+per=$(printf "%02d\n" $PERCENTAGE)
 
 if [[ ${per} -gt 100 ]]; then
 	COLOR="#FAAA00"
@@ -24,12 +24,12 @@ echo "${COLOR}"
 
 
 # mouse buttons
-case $BLOCK_BUTTON in
-    1) xrandr --output $SCREEN --brightness $INC;;
-    3) xrandr --output $SCREEN --brightness $DEC;;
-	4) xrandr --output $SCREEN --brightness $INC;;
-	5) xrandr --output $SCREEN --brightness $DEC;;
-esac
+# case $BLOCK_BUTTON in
+#     1) xrandr --output $SCREEN --brightness $INC;;
+#     3) xrandr --output $SCREEN --brightness $DEC;;
+# 	4) xrandr --output $SCREEN --brightness $INC;;
+# 	5) xrandr --output $SCREEN --brightness $DEC;;
+# esac
 
 # # Left click
 # if [[ "${BLOCK_BUTTON}" -eq 1 ]]; then
