@@ -1,13 +1,15 @@
 #!/bin/bash
 DEVICE="--"
 DEVICE=$(echo -e 'info\nquit' | bluetoothctl | awk '/Name/ {print $2}')
-PROFILE=$(pactl list | grep "Active Profile:" | awk '{print $NF}' | grep -e headset_head_unit  -e a2dp_sink_aac)
+# PROFILE=$(pactl list | grep "Active Profile:" | awk '{print $NF}' | grep -e headset_head_unit  -e a2dp_sink_aac)
+PROFILE=$(pactl list | grep "Active Profile:" | awk '{print $NF}' | grep -e headset_head_unit  -e a2dp_sink)
 
 #🎤🎧♫
 case $PROFILE in 
 	headset_head_unit) ICON=;; 
-	a2dp_sink_aac) ICON=;;
-	*) ICON="";;
+	# a2dp_sink_aac) ICON=;;
+	a2dp_sink) ICON=;;
+	*) ICON="?";;
 esac
 
 if [[ -z "${DEVICE}" ]]; then

@@ -1,22 +1,25 @@
 #!/bin/bash
 
+# A2DP="a2dp_sink"
+A2DP="a2dp_sink_aac"
+
 function usage {
     echo
-    echo "Usage: $0 (phone|music)"
+    echo "Usage: $0 (phone|music|toggle)"
     exit 0
 }
 
 function switch_profiles {
-	profile=$(pactl list | grep "Active Profile:" | awk '{print $NF}' | grep -e headset_head_unit  -e a2dp_sink_aac);
+  profile=$(pactl list | grep "Active Profile:" | awk '{print $NF}' | grep -e headset_head_unit  -e $A2DP -e $profilename);
 	case $profile in
-		a2dp_sink_aac) profilename="headset_head_unit" ;;
-		headset_head_unit) profilename="a2dp_sink_aac";;
-		*) profilename="a2dp_sink_aac";;
+		$A2DP) profilename="headset_head_unit" ;;
+    headset_head_unit) profilename=$A2DP;;
+    *) profilename=$A2DP;;
  	esac 
 }
 
 function print_profile {
-	echo "$(pactl list | grep "Active Profile:" | awk '{print $NF}' | grep -e headset_head_unit  -e a2dp_sink_aac)"
+	echo "$(pactl list | grep "Active Profile:" | awk '{print $NF}' | grep -e headset_head_unit  -e $A2DP -e $profilename)"
 }
 
 case "$1" in
@@ -24,11 +27,14 @@ case "$1" in
       profilename="headset_head_unit"
       ;;
   music)
-      profilename="a2dp_sink_aac"
+      profilename=$A2DP
       ;;
   toggle)
 	  switch_profiles
   	  ;;
+  profile)
+      profilename=$2
+      ;;
   *)
       usage
       ;;
